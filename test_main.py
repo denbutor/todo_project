@@ -19,11 +19,9 @@ def test_get_tasks():
 
 
 def test_update_task():
-    # Спочатку створюємо задачу
     create_res = client.post("/tasks", json={"title": "Old title"})
     task_id = create_res.json()["id"]
 
-    # Оновлюємо її
     response = client.put(f"/tasks/{task_id}", json={"title": "New title", "completed": True})
     assert response.status_code == 200
     assert response.json()["title"] == "New title"
@@ -31,15 +29,12 @@ def test_update_task():
 
 
 def test_delete_task():
-    # Створюємо задачу
     create_res = client.post("/tasks", json={"title": "To delete"})
     task_id = create_res.json()["id"]
 
-    # Видаляємо
     response = client.delete(f"/tasks/{task_id}")
     assert response.status_code == 200
 
-    # Перевіряємо відсутність
     get_res = client.get("/tasks")
     assert not any(t["id"] == task_id for t in get_res.json())
 

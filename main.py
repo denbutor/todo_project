@@ -4,7 +4,6 @@ from schemas import Task, TaskCreate
 
 app = FastAPI()
 
-# Збереження даних в пам'яті
 tasks = {}
 task_id_counter = 1
 
